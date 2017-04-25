@@ -1,10 +1,12 @@
 #include "anisotropic.h"
+#include "image.h"
 
 
 static const float K = 0.35f;
 
 static int16_t **gradient_y(const struct image *img);
 static int16_t gradient_y_val(const struct image *img, int i, int j);
+
 static int16_t **gradient_x(const struct image *img);
 static int16_t gradient_x_val(const struct image *img, int i, int j);
 
@@ -13,13 +15,13 @@ static int16_t laplace_val(const struct image *img, int i, int j);
 
 static int16_t **gradient_y(const struct image *img)
 {
-	uint16_t **grad_y;
+	int16_t **grad_y;
 	int i, j;
 	if (!(grad_y = malloc(sizeof(laplace[0]) * img->rows)))
 		ERROR("malloc()");
 	for (i=0;i<img->rows;i++)
 		if (!(grad_y[i] = malloc(sizeof(laplace[i][0]) * img->cols)))
-			ERROR("malloc()");
+			SYSCALL_ERROR("malloc()");
 	for (i=0;i<img->rows;i++)
 		for (j=0;j<img->cols;j++)
 			grad_y[i][j] = gradient_y_val(img, i, j);
@@ -32,6 +34,8 @@ static int16_t gradient_y_val(const struct image *img, int i, int j)
 	val = 0;
 	if (i != img->rows)
 		val += ((int16_t)img->values[i+1][j]) - img->values[i][j]; 
+	else
+		val = img->values[i][j];
 	return val;
 }
 
@@ -39,13 +43,13 @@ static int16_t gradient_y_val(const struct image *img, int i, int j)
 
 static int16_t **gradient_x(const struct image *img)
 {
-	uint16_t **grad_x;
+	int16_t **grad_x;
 	int i, j;
 	if (!(grad_x = malloc(sizeof(laplace[0]) * img->rows)))
 		ERROR("malloc()");
 	for (i=0;i<img->rows;i++)
 		if (!(grad_x[i] = malloc(sizeof(laplace[i][0]) * img->cols)))
-			ERROR("malloc()");
+			SYSCALL_ERROR("malloc()");
 	for (i=0;i<img->rows;i++)
 		for (j=0;j<img->cols;j++)
 			grad_x[i][j] = gradient_x_val(img, i, j);
@@ -59,6 +63,8 @@ static int16_t gradient_x_val(const struct image *img, int i, int j)
 	val = 0;
 	if (j != img->cols)
 		val += ((int16_t)img->values[i][j+1]) - img->values[i][j]; 
+	else
+		val = img->values[i][j];
 	return val;
 }
 

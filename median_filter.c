@@ -34,7 +34,10 @@ struct image *median_filter(const struct image *img, size_t w_size)
 						img->values[i+w_i][j+w_j];
 				}
 			}
-			qsort(w_vals, w_size * w_size, sizeof(w_vals[0]), cmp);
+			qsort(w_vals, w_size * w_size, 
+				sizeof(w_vals[0]), cmp);
+
+			/* take median value of window */
 			out->values[i][j] = w_vals[(w_size * w_size) / 2];
 		}
 	}

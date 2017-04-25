@@ -1,8 +1,8 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include "my_error.h"
 #include "image.h"
 #include "convolution.h"
-#include "general.h"
 
 
 static int **kernel_flip(size_t k_rows, size_t k_cols, 
@@ -60,11 +60,11 @@ static int **kernel_flip(size_t k_rows, size_t k_cols,
 {
 	int **mask, i, j;
 	if (!(mask = malloc(sizeof(mask[0]) * k_rows)))
-		ERROR("malloc()");
+		SYSCALL_ERROR("malloc()");
 		
 	for (i=0;i<k_rows;i++)
 		if (!(mask[i] = malloc(sizeof(mask[i][0]) * k_cols)))
-			ERROR("malloc()");
+			SYSCALL_ERROR("malloc()");
 			
 	for (i=0;i<k_rows;i++)
 		for (j=0;j<k_cols;j++)

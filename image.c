@@ -3,8 +3,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
-#include "general.h"
 #include "image.h"
+#include "my_error.h"
 
 /*
  * writes img to path as a .pgm image
@@ -14,7 +14,7 @@ void write_image(const struct image *img, const char *path)
 	int i, j;
 	FILE *fp;
 	if (!(fp = fopen(path, "w")))
-		ERROR("fopen()");
+		SYSCALL_ERROR("fopen()");
 		
 	fprintf(fp, "P5\n%hu %hu\n%hu\n", img->cols, img->rows, img->maxval);
 	for (i=0;i<img->rows;i++)
@@ -22,10 +22,10 @@ void write_image(const struct image *img, const char *path)
 			fprintf(fp, "%c", img->values[i][j]);
 			
 	if (fflush(fp))
-		ERROR("fflush()");
+		SYSCALL_ERROR("fflush()");
 		
 	if (fclose(fp))
-		ERROR("fclose()");
+		SYSCALL_ERROR("fclose()");
 }
 
 /*
@@ -40,24 +40,22 @@ struct image *read_image(const char *path)
 	struct image *img;
 	
 	if (!(fp = fopen(path, "r")))
-		ERROR("fopen()");
+		SYSCALL_ERROR("fopen()");
 			
-	if (fscanf(fp, "P5\n%hu %hu\n%hu\n", &cols, &rows, &maxval) != 3) {
-		fprintf(stderr, "unable to read header\n");
-		exit(EXIT_FAILURE);
-	}
+	if (fscanf(fp, "P5\n%hu %hu\n%hu\n", &cols, &rows, &maxval) != 3)
+		ERROR("unable to read image header");
+
 	img = new_image(rows, cols, maxval);
-	for (i=0;i<img->rows;i++)
+	for (i=0;i<img->rows;i++) {
 		for (j=0;j<img->cols;j++) {
 			if (fscanf(fp, "%c", &img->values[i][j]) != 1) {
-				fprintf(stderr, 
-				"unable to read pixel (%d, %d)\n", i, j);
-				exit(EXIT_FAILURE);
+				ERROR("unable to read pixels");
 			}
 		}
+	}
 
 	if (fclose(fp))
-		ERROR("fclose()");
+		SYSCALL_ERROR("fclose()");
 		
 	return img;
 }
@@ -83,19 +81,19 @@ struct image *new_image(uint16_t rows, uint16_t cols, uint16_t maxval)
 	struct image *img;
 	
 	if (!(img = malloc(sizeof(*img))))
-		ERROR("malloc()");
+		SYSCALL_ERROR("malloc()");
 		
 	img->rows = rows;
 	img->cols = cols;
 	img->maxval = maxval;
 	if (!(img->values = malloc(sizeof(img->values[0]) * rows)))
-		ERROR("malloc()");
+		SYSCALL_ERROR("malloc()");
 		
 	for (i=0;i<img->rows;i++) {
 		if (!(img->values[i] = malloc(sizeof(img->values[i][0])
 			* img->cols))) {
 			
-			ERROR("malloc()");
+			SYSCALL_ERROR("malloc()");
 		}
 		
 		memset(img->values[i], 0, 
