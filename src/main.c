@@ -1,32 +1,37 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include "my_error.h"
 #include "lee_filter.h"
 #include "kernels.h"
 #include "noise.h"
 #include "convolution.h"
 #include "image.h"
 #include "median_filter.h"
+#include "anisotropic.h"
 
-#define PATH "/home/vlad/Dropbox/s17/imaging/heart/heart.pgm"
-
-int main(void)
+int main(int argc, char *argv[])
 {
-	struct image *img, *median_img, *salty, *lee;
+	char *imgp;
+	struct image *img, *gx, *gy, *l;
+
+	if (argc != 2)
+		ERROR("no image specified\n");
+
+	imgp = argv[1];
 	
-	img = read_image(PATH);
-	salty = salt_n_pepper(img);
-	median_img = median_filter(salty, 5);
-	lee = lee_filter(img, 3);
+	img = read_image(imgp);
+	gx = gradient_x(img);
+	gy = gradient_y(img);
+	l = laplace(img);
 			
-	write_image(img, "heart.pgm");
-	write_image(median_img, "heart_median.pgm");
-	write_image(salty, "salty.pgm");
-	write_image(lee, "lee.pgm");
+	write_image(gx, "../images/gx.pgm");
+	write_image(gy, "../images/gy.pgm");
+	write_image(l, "../images/l.pgm");
 	
 	free_image(img);
-	free_image(median_img);
-	free_image(salty);
-	free_image(lee);
+	free_image(gx);
+	free_image(gy);
+	free_image(l);
 	
 	
 	

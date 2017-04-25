@@ -1,6 +1,7 @@
 #ifndef LEE_FILTER_H
 #define LEE_FILTER_H
 
+#include <sys/types.h>
 
 /*
  * applies the Lee image filter to the img
