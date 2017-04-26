@@ -115,3 +115,42 @@ struct image *copy_image(const struct image *img)
 			new_img->values[i][j] = img->values[i][j];
 	return new_img;
 }
+
+struct image *add_image(const struct image *img1, const struct image *img2)
+{
+	int row, col, sum;
+	//Should check for same image dimensions and throw error if not equal.
+	struct image *added_image = new_image(img1->rows, img1->cols, img1->maxval);
+
+	for (row = 0; row < added_image->rows; row++){
+		for (col = 0; col < added_image->cols; col++){
+			sum = (img1->values[row][col] + img2->values[row][col]);
+			if (sum >= added_image->maxval)
+				added_image->values[row][col] = added_image->maxval;
+			else
+				added_image->values[row][col] = sum;
+		}
+	}
+
+	//Needs to be freed later.
+	return added_image;
+}
+
+/*
+* Multiplies an image by a scalar and returns the result. Fractions will
+* be truncated.
+*/
+struct image *scalar_mult(const struct image *img, const float scalar)
+{
+	int row, col;
+	struct image *result = new_image(img->rows, img->cols, img->maxval);
+	
+	for (row = 0; row < result->rows; row++){
+		for (col = 0; col < result->cols; col++){
+			result->values[row][col] = img->values[row][col] * scalar;
+		}
+	}
+
+	//Will need to be freed.
+	return result;
+}
