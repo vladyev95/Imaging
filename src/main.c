@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
 	imgp = argv[1];
 
 	img = read_image(imgp);
-	smimg = convolve(img,3,3,gaussian_3_3_kernel, (1.0f/16));   
+	img = convolve(img,3,3,gaussian_3_3_kernel, (1.0f/16));   
 	write_image(img, "../images/smooth.pgm");
 	gx = gradient_x(img);
 	gy = gradient_y(img);
@@ -35,7 +35,7 @@ int main(int argc, char *argv[])
 	write_image(gy2, "../images/gy2.pgm");
 	write_image(l, "../images/l.pgm");
 
-	print_image(gx);
+//	print_image(gx);
 	
 	free_image(gx);
 	free_image(gy);
@@ -43,10 +43,10 @@ int main(int argc, char *argv[])
 	free_image(gy2);
 	free_image(l);
 	
-//	pMalik = run_perona_malik(img, 1, 1, 32, .25);
-//	write_image(pMalik, "../images/pmalik.pgm");
-//	free(img);
-//	free(pMalik);
+	pMalik = run_perona_malik(img, 1, 1, 16, .25);
+	write_image(pMalik, "../images/pmalik.pgm");
+	free(img);
+	free(pMalik);
 	
 	return EXIT_SUCCESS;
 }
