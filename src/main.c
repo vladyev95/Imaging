@@ -16,9 +16,10 @@ int main(int argc, char *argv[])
 
 	if (argc != 2)
 		ERROR("no image specified\n");
+	
 
 	imgp = argv[1];
-	
+
 	img = read_image(imgp);
 	smimg = convolve(img,3,3,gaussian_3_3_kernel, (1.0f/16));   
 	write_image(img, "../images/smooth.pgm");
@@ -33,6 +34,8 @@ int main(int argc, char *argv[])
 	write_image(gx2, "../images/gx2.pgm");
 	write_image(gy2, "../images/gy2.pgm");
 	write_image(l, "../images/l.pgm");
+
+	print_image(gx);
 	
 	free_image(gx);
 	free_image(gy);

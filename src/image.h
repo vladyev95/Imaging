@@ -36,10 +36,14 @@ struct image *new_image(uint16_t rows, uint16_t cols, uint16_t maxval);
  */
 struct image *copy_image(const struct image *img);
 
+<<<<<<< HEAD
 /*
 * Adds two images and returns the result. Values >= 255 are set to 255.
 */
 struct image *add_image(const struct image *img1, const struct image *img2);
+=======
+void print_image(const struct image *img);
+>>>>>>> master
 
 
 /*

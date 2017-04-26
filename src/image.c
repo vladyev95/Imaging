@@ -16,6 +16,11 @@ void write_image(const struct image *img, const char *path)
 	if (!(fp = fopen(path, "w")))
 		SYSCALL_ERROR("fopen()");
 		
+	/*
+	 * header consists of "nrows ncols" on 1st line
+	 * and "pixelmaxval\n" on 2nd line, followed by all pixel values
+	 * the P5 is format of the bitmap image, we use specifically P5
+	 */
 	fprintf(fp, "P5\n%hu %hu\n%hu\n", img->cols, img->rows, img->maxval);
 	for (i=0;i<img->rows;i++)
 		for (j=0;j<img->cols;j++)
@@ -107,12 +112,13 @@ struct image *new_image(uint16_t rows, uint16_t cols, uint16_t maxval)
  */
 struct image *copy_image(const struct image *img)
 {
-	int i, j;
+	int i;
 	struct image *new_img;
 	new_img = new_image(img->rows, img->cols, img->maxval);
-	for (i=0;i<img->rows;i++)
-		for (j=0;j<img->cols;j++)
-			new_img->values[i][j] = img->values[i][j];
+	for (i=0;i<img->rows;i++) {
+		memcpy(new_img->values[i], img->values[i],
+			img->cols * sizeof(img->values[i][0]));
+	}
 	return new_img;
 }
 
