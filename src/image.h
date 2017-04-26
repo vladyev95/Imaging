@@ -36,5 +36,7 @@ struct image *new_image(uint16_t rows, uint16_t cols, uint16_t maxval);
  */
 struct image *copy_image(const struct image *img);
 
+void print_image(const struct image *img);
+
 
 #endif

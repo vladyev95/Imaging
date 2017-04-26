@@ -11,6 +11,7 @@ static int **kernel_flip(size_t k_rows, size_t k_cols,
 /*
  * convolves img with kernel and returns a new image representing
  * the result
+ * kernel size needs to be odd number
  */
 struct image *convolve(const struct image *img, size_t k_rows, size_t k_cols, 			int kernel[k_rows][k_cols], float coeff)
 {
@@ -31,6 +32,12 @@ struct image *convolve(const struct image *img, size_t k_rows, size_t k_cols, 		
 	mask = kernel_flip(k_rows, k_cols, kernel);
 	out = new_image(img->rows, img->cols, img->maxval);
 	
+	/*
+	 * must start with offset since edge pixels have no neighbours
+	 * on some sides
+	 * e.g.: kernel row size of 3 makes us start at pixel row 1
+	 * 5 makes us start at 2, 7 at 3... etc
+	 */
 	for (i=k_r/2;i<img->rows-k_r/2;i++)
 		for (j=k_c/2;j<img->cols-k_c/2;j++) {
 			acc = 0;
@@ -48,6 +55,7 @@ struct image *convolve(const struct image *img, size_t k_rows, size_t k_cols, 		
 	for (i=0;i<k_rows;i++)
 		free(mask[i]);
 	free(mask);
+
 	return out;
 }
 
@@ -71,4 +79,14 @@ static int **kernel_flip(size_t k_rows, size_t k_cols,
 			mask[k_rows-i-1][k_cols-j-1] = kernel[i][j];
 
 	return mask;
+}
+
+void print_image(const struct image *img)
+{
+	int i, j;
+	for (i=0;i<img->rows;i++) {
+		for (j=0;j<img->cols;j++)
+			printf("%d ", img->values[i][j]);
+		putchar('\n');
+	}
 }

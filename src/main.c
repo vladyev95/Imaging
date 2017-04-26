@@ -16,9 +16,10 @@ int main(int argc, char *argv[])
 
 	if (argc != 2)
 		ERROR("no image specified\n");
+	
 
 	imgp = argv[1];
-	
+
 	img = read_image(imgp);
 	gx = gradient_x(img);
 	gy = gradient_y(img);
@@ -31,6 +32,8 @@ int main(int argc, char *argv[])
 	write_image(gx2, "../images/gx2.pgm");
 	write_image(gy2, "../images/gy2.pgm");
 	write_image(l, "../images/l.pgm");
+
+	print_image(gx);
 	
 	free_image(img);
 	free_image(gx);

@@ -45,16 +45,16 @@ int gaussian_5_5_kernel[GAUSSIAN_5_5_KERNEL_ROWS][GAUSSIAN_5_5_KERNEL_COLS] =
   {1, 4, 6, 4, 1} };
 
 int gradient_x_kernel[GRADIENT_X_KERNEL_ROWS][GRADIENT_X_KERNEL_ROWS] =
-{ {1, 0, -1},
-  {2, 0, -2},
-  {1, 0 -1} };
+{ {0, 0, 0},
+  {-1, 0, 1},
+  {0, 0, 0} };
 
 int gradient_y_kernel[GRADIENT_Y_KERNEL_ROWS][GRADIENT_X_KERNEL_ROWS] =
-{ {1, 2, 1},
+{ {0, -1, 0},
   {0, 0, 0},
-  {-1, -2, -1} };
+  {0, 1, 0 }};
 
 int laplace_kernel[LAPLACE_KERNEL_ROWS][LAPLACE_KERNEL_COLS] =
-{ {0, -1, 0},
-  {-1, 4, -1},
-  {0, -1, 0} };
+{ {0, 1, 0},
+  {1, -4, 1},
+  {0, 1, 0} };
