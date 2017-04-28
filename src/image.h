@@ -3,9 +3,13 @@
 
 #include <stdint.h>
 
-
 struct image {
-	uint8_t **values;
+	int **values;
+	uint16_t rows, cols, maxval;
+};
+
+struct float_image {
+	float **values;
 	uint16_t rows, cols, maxval;
 };
 
@@ -48,4 +52,33 @@ void print_image(const struct image *img);
 * Multiplies an image by a scalar and returns the result.
 */
 struct image *scalar_mult(const struct image *img, const float scalar);
+
+struct image *convert_to_pgm(const struct float_image *img);
+
+
+
+/*
+* frees the image
+*/
+//void free_image(struct image *img);
+
+/*
+ * dynamically allocates an image with given arguments
+ */
+struct float_image *new_float_image(uint16_t rows, uint16_t cols, uint16_t maxval);
+
+/*
+ * returns an identicaly copy of img
+ */
+struct float_image *copy_float_image(const struct float_image *img);
+
+/*
+* Adds two images and returns the result. Values >= 255 are set to 255.
+*/
+
+struct float_image *convert_to_float(const struct image *img);
+
+void print_float_image(const struct float_image *img);
+
+void free_float_image(struct float_image *img);
 #endif
