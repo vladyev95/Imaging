@@ -54,6 +54,29 @@ int gradient_y_kernel[GRADIENT_Y_KERNEL_ROWS][GRADIENT_X_KERNEL_ROWS] =
   {0, 0, 0},
   {0, 1, 0 }};
 
+int finite_east_kernel[FINITE_EAST_KERNEL_ROWS][FINITE_EAST_KERNEL_ROWS] =
+{ {0, 0, 0},
+  {0, -1, 1},
+  {0, 0, 0 }};
+
+int finite_west_kernel[FINITE_WEST_KERNEL_ROWS][FINITE_WEST_KERNEL_ROWS] =
+{ {0, 0, 0},
+  {1, -1, 0},
+  {0, 0, 0 }};
+
+int finite_north_kernel[FINITE_NORTH_KERNEL_ROWS][FINITE_NORTH_KERNEL_ROWS] =
+{ {0, 1, 0},
+  {0, -1, 0},
+  {0, 0, 0 }};
+
+int finite_south_kernel[FINITE_SOUTH_KERNEL_ROWS][FINITE_SOUTH_KERNEL_ROWS] =
+{ {0, 0, 0},
+  {0, -1, 0},
+  {0, 1, 0 }};
+
+
+
+
 int laplace_kernel[LAPLACE_KERNEL_ROWS][LAPLACE_KERNEL_COLS] =
 { {0, 1, 0},
   {1, -4, 1},

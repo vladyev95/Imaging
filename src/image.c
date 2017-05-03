@@ -53,7 +53,7 @@ struct image *read_image(const char *path)
 	img = new_image(rows, cols, maxval);
 	for (i=0;i<img->rows;i++) {
 		for (j=0;j<img->cols;j++) {
-			if (fscanf(fp, "%c", &img->values[i][j]) != 1) {
+			if (fscanf(fp, "%c", (char *)&img->values[i][j]) != 1) {
 				ERROR("unable to read pixels");
 			}
 		}
@@ -130,7 +130,7 @@ struct image *add_image(const struct image *img1, const struct image *img2)
 
 	for (row = 0; row < added_image->rows; row++){
 		for (col = 0; col < added_image->cols; col++){
-			sum = (img1->values[row][col] + img2->values[row][col]);
+			sum = ((int)img1->values[row][col] + (int)img2->values[row][col]);
 			if (sum >= added_image->maxval)
 				added_image->values[row][col] = added_image->maxval;
 			else
@@ -159,4 +159,20 @@ struct image *scalar_mult(const struct image *img, const float scalar)
 
 	//Will need to be freed.
 	return result;
+}
+
+struct image *convert_to_pgm(const struct float_image *img)
+{
+	int i, j;
+	struct image *res;
+	
+	res = new_image(img->rows, img->cols, img->maxval);
+	for (i = 0; i < res->rows; i++){
+		for (j =0; j < res->cols; j++){
+			res->values[i][j] = (int)img->values[i][j];
+		}
+	}
+
+	return res;
+
 }
