@@ -1,8 +1,8 @@
 #ifndef MEDIAN_FILTER_H
 #define MEDIAN_FILTER_H
 
-#include <sys/types.h>
+#include "img.h"
 
-struct image *median_filter(const struct image *img, size_t w_size);
+void median_filter(struct img *dest, const struct img *img, int w_size);
 
 #endif
