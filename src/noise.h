@@ -1,9 +1,9 @@
 #ifndef NOISE_H
 #define NOISE_H
 
-#include "image.h"
+#include "img.h"
 
-struct image *salt_n_pepper(const struct image *img);
+void salt_n_pepper(struct img *dest, const struct img *img);
 
 
 #endif

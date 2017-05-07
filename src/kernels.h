@@ -1,81 +1,84 @@
 #ifndef KERNELS_H_INCLUDED
 #define KERNELS_H_INCLUDED
 
-#define IDENTITY_KERNEL_ROWS 3
-#define IDENTITY_KERNEL_COLS 3
-#define IDENTITY_KERNEL_COEFF 1.0f
-extern int identity_kernel[IDENTITY_KERNEL_ROWS][IDENTITY_KERNEL_COLS];
+#define IDENTITY_ROWS 3
+#define IDENTITY_COLS 3
+#define IDENTITY_COEFF 1.0
+extern int identity_kern[IDENTITY_ROWS * IDENTITY_COLS];
 
-#define BOX_BLUR_KERNEL_ROWS 3
-#define BOX_BLUR_KERNEL_COLS 3
-#define BOX_BLUR_KERNEL_COEFF (1.0f/9)
-extern int box_blur_kernel[BOX_BLUR_KERNEL_ROWS][BOX_BLUR_KERNEL_COLS];
+#define BOX_BLUR_ROWS 3
+#define BOX_BLUR_COLS 3
+#define BOX_BLUR_COEFF (1.0f/9)
+extern int box_blur_kern[BOX_BLUR_ROWS * BOX_BLUR_COLS];
 
-#define EDGE_1_KERNEL_ROWS 3
-#define EDGE_1_KERNEL_COLS 3
-#define EDGE_1_KERNEL_COEFF 1.0f
-extern int edge_1_kernel[EDGE_1_KERNEL_ROWS][EDGE_1_KERNEL_COLS];
-
-
-#define EDGE_2_KERNEL_ROWS 3
-#define EDGE_2_KERNEL_COLS 3
-#define EDGE_2_KERNEL_COEFF 1.0f
-extern int edge_2_kernel[EDGE_2_KERNEL_ROWS][EDGE_2_KERNEL_COLS];
-
-#define EDGE_3_KERNEL_ROWS 3
-#define EDGE_3_KERNEL_COLS 3
-#define EDGE_3_KERNEL_COEFF 1.0f
-extern int edge_3_kernel[EDGE_3_KERNEL_ROWS][EDGE_3_KERNEL_COLS];
-
-#define SHARPEN_KERNEL_ROWS 3
-#define SHARPEN_KERNEL_COLS 3
-#define SHARPEN_KERNEL_COEFF 1.0f
-extern int sharpen_kernel[SHARPEN_KERNEL_ROWS][SHARPEN_KERNEL_COLS];
-
-#define GAUSSIAN_3_3_KERNEL_ROWS 3
-#define GAUSSIAN_3_3_KERNEL_COLS 3
-#define GAUSSIAN_3_3_KERNEL_COEFF (1.0f/16)
-extern int gaussian_3_3_kernel[GAUSSIAN_3_3_KERNEL_ROWS][GAUSSIAN_3_3_KERNEL_COLS];
-
-#define GAUSSIAN_5_5_KERNEL_ROWS 5
-#define GAUSSIAN_5_5_KERNEL_COLS 5
-#define GAUSSIAN_5_5_KERNEL_COEFF (1.0f/256)
-extern int gaussian_5_5_kernel[GAUSSIAN_5_5_KERNEL_ROWS][GAUSSIAN_5_5_KERNEL_COLS];
-
-#define GRADIENT_X_KERNEL_ROWS 3
-#define GRADIENT_X_KERNEL_COLS 3
-#define GRADIENT_X_KERNEL_COEFF (1.0f/2)
-extern int gradient_x_kernel[GRADIENT_X_KERNEL_ROWS][GRADIENT_X_KERNEL_ROWS];
-
-#define GRADIENT_Y_KERNEL_ROWS 3
-#define GRADIENT_Y_KERNEL_COLS 3
-#define GRADIENT_Y_KERNEL_COEFF (1.0f/2)
-extern int gradient_y_kernel[GRADIENT_Y_KERNEL_ROWS][GRADIENT_X_KERNEL_ROWS];
-
-#define FINITE_EAST_KERNEL_ROWS 3
-#define FINITE_EAST_KERNEL_COLS 3
-#define FINITE_EAST_KERNEL_COEFF 1.0
-extern int finite_east_kernel[FINITE_EAST_KERNEL_ROWS][FINITE_EAST_KERNEL_ROWS];
-
-#define FINITE_WEST_KERNEL_ROWS 3
-#define FINITE_WEST_KERNEL_COLS 3
-#define FINITE_WEST_KERNEL_COEFF 1.0
-extern int finite_west_kernel[FINITE_WEST_KERNEL_ROWS][FINITE_WEST_KERNEL_ROWS];
+#define EDGE_1_ROWS 3
+#define EDGE_1_COLS 3
+#define EDGE_1_COEFF 1.0
+extern int edge_1_kern[EDGE_1_ROWS * EDGE_1_COLS];
 
 
-#define FINITE_NORTH_KERNEL_ROWS 3
-#define FINITE_NORTH_KERNEL_COLS 3
-#define FINITE_NORTH_KERNEL_COEFF 1.0
-extern int finite_north_kernel[FINITE_NORTH_KERNEL_ROWS][FINITE_NORTH_KERNEL_ROWS];
+#define EDGE_2_ROWS 3
+#define EDGE_2_COLS 3
+#define EDGE_2_COEFF 1.0
+extern int edge_2_kern[EDGE_2_ROWS * EDGE_2_COLS];
 
-#define FINITE_SOUTH_KERNEL_ROWS 3
-#define FINITE_SOUTH_KERNEL_COLS 3
-#define FINITE_SOUTH_KERNEL_COEFF 1.0
-extern int finite_south_kernel[FINITE_SOUTH_KERNEL_ROWS][FINITE_SOUTH_KERNEL_ROWS];
+#define EDGE_3_ROWS 3
+#define EDGE_3_COLS 3
+#define EDGE_3_COEFF 1.0
+extern int edge_3_kern[EDGE_3_ROWS * EDGE_3_COLS];
 
-#define LAPLACE_KERNEL_ROWS 3
-#define LAPLACE_KERNEL_COLS 3
-#define LAPLACE_KERNEL_COEFF (1.0f/8)
-extern int laplace_kernel[LAPLACE_KERNEL_ROWS][LAPLACE_KERNEL_COLS];
+#define SHARPEN_ROWS 3
+#define SHARPEN_COLS 3
+#define SHARPEN_COEFF 1.0
+extern int sharpen_kern[SHARPEN_ROWS * SHARPEN_COLS];
+
+#define GAUSS_3_3_ROWS 3
+#define GAUSS_3_3_COLS 3
+#define GAUSS_3_3_COEFF (1.0f/16)
+extern int gauss_3_3_kern[GAUSS_3_3_ROWS * GAUSS_3_3_COLS];
+
+#define GAUSS_5_5_ROWS 5
+#define GAUSS_5_5_COLS 5
+#define GAUSS_5_5_COEFF (1.0f/256)
+extern int gauss_5_5_kern[GAUSS_5_5_ROWS * GAUSS_5_5_COLS];
+
+/*
+ * finite forward x
+ */
+#define XFFDIFF_ROWS 3
+#define XFFDIFF_COLS 3
+#define XFFDIFF_COEFF 1
+extern int xffdiff_kern[XFFDIFF_ROWS * XFFDIFF_COLS];
+
+/*
+ * finite backward x
+ */
+#define XFBDIFF_ROWS 3
+#define XFBDIFF_COLS 3
+#define XFBDIFF_COEFF 1
+extern int xfbdiff_kern[XFBDIFF_ROWS * XFBDIFF_COLS];
+
+/*
+ * finite forward y
+ */
+#define YFFDIFF_ROWS 3
+#define YFFDIFF_COLS 3
+#define YFFDIFF_COEFF 1
+extern int yffdiff_kern[YFFDIFF_ROWS * YFFDIFF_COLS];
+
+/*
+ * finite backward y
+ */
+#define YFBDIFF_ROWS 3
+#define YFBDIFF_COLS 3
+#define YFBDIFF_COEFF 1
+extern int yfbdiff_kern[YFBDIFF_ROWS * YFBDIFF_COLS];
+
+#define LAPLACIAN_ROWS 3
+#define LAPLACIAN_COLS 3
+#define LAPLACIAN_COEFF 1
+extern int laplacian_kern1[LAPLACIAN_ROWS * LAPLACIAN_COLS];
+
+extern int laplacian_kern2[LAPLACIAN_ROWS * LAPLACIAN_COLS];
 
 #endif

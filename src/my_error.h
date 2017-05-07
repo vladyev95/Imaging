@@ -6,11 +6,8 @@
 #include <errno.h>
 
 
-#define SYSCALL_ERROR(s) error_at_line(EXIT_FAILURE, errno, __FILE__, \
-				__LINE__, s)
+#define ERROR(s, e) error_at_line(EXIT_FAILURE, e, __FILE__, __LINE__, s)
 
-#define ERROR(s) error_at_line(EXIT_FAILURE, 0, __FILE__, __LINE__, \
-				s)
 
 
 #endif

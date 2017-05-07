@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include "median_filter.h"
-#include "image.h"
+#include "img.h"
 
 
 static int cmp(const void *a, const void *b);
@@ -9,39 +9,31 @@ static int cmp(const void *a, const void *b);
  * uses window size of w_size x w_size
  * w_size must be an odd number
  */
-struct image *median_filter(const struct image *img, size_t w_size)
+void median_filter(struct img *dest, const struct img *img, int w_size)
 {	
 	/* w_vals = window values in current window */
-	uint8_t w_vals[w_size * w_size];
-	struct image *out;
+	int w_vals[w_size * w_size];
 	
 	/* i j iterate img, w_i w_j iterate current window
-	 * w_s is int w_size as int so that loop logic works
 	 * w_cur is the next index in w_vals to fill
 	 */
-	int i, j, w_i, w_j, w_cur, w_s;
+	int i, j, w_i, w_j, w_cur;
 	
-	w_s = w_size;
-	out = copy_image(img);
-	
-	
-	for (i=w_s/2;i<img->rows-w_s/2;i++) {
-		for (j=w_s/2;j<img->cols-w_s/2;j++) {
+	for (i=w_size/2;i<img->rows-w_size/2;i++) {
+		for (j=w_size/2;j<img->cols-w_size/2;j++) {
 			w_cur = 0;
-			for (w_i=-w_s/2;w_i<=w_s/2;w_i++) {
-				for (w_j=-w_s/2;w_j<=w_s/2;w_j++) {
+			for (w_i=-w_size/2;w_i<=w_size/2;w_i++) {
+				for (w_j=-w_size/2;w_j<=w_size/2;w_j++) {
 					w_vals[w_cur++] = 
-						img->values[i+w_i][j+w_j];
+						img->vals[i+w_i][j+w_j];
 				}
 			}
-			qsort(w_vals, w_size * w_size, 
-				sizeof(w_vals[0]), cmp);
+			qsort(w_vals, w_size * w_size, sizeof(w_vals[0]), cmp);
 
 			/* take median value of window */
-			out->values[i][j] = w_vals[(w_size * w_size) / 2];
+			dest->vals[i][j] = w_vals[(w_size * w_size) / 2];
 		}
 	}
-	return out;
 }
 
 /*
@@ -50,8 +42,8 @@ struct image *median_filter(const struct image *img, size_t w_size)
 static int cmp(const void *a, const void *b)
 {
 	uint8_t x, y;
-	x = *(uint8_t *) a;
-	y = *(uint8_t *) b;
+	x = *(uint8_t *)a;
+	y = *(uint8_t *)b;
 	if (x > y)
 		return 1;
 	else if (x < y)

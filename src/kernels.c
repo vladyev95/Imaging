@@ -1,83 +1,75 @@
 #include "kernels.h"
 
-int identity_kernel[IDENTITY_KERNEL_ROWS][IDENTITY_KERNEL_COLS] =
-{ {0, 0, 0},
-  {0, 1, 0},
-  {0, 0, 0} };
+int identity_kern[IDENTITY_ROWS * IDENTITY_COLS] = 
+{ 0, 0, 0,
+  0, 1, 0,
+  0, 0, 0 };
 
-int box_blur_kernel[BOX_BLUR_KERNEL_ROWS][BOX_BLUR_KERNEL_COLS] =
-{ {1, 1, 1},
-  {1, 1, 1},
-  {1, 1, 1} };
+int box_blur_kern[BOX_BLUR_ROWS * BOX_BLUR_COLS] = 
+{ 1, 1, 1,
+  1, 1, 1,
+  1, 1, 1 };
 
-int edge_1_kernel[EDGE_1_KERNEL_ROWS][EDGE_1_KERNEL_COLS] =
-{ {1, 0, -1},
-  {0, 0, 0},
-  {-1, 0, 1} };
-
-
-int edge_2_kernel[EDGE_2_KERNEL_ROWS][EDGE_2_KERNEL_COLS] =
-{ {0, 1, 0},
-  {1, -4, 1},
-  {0, 1, 0} };
+int edge_1_kern[EDGE_1_ROWS * EDGE_1_COLS] = 
+{ 1, 0, -1,
+  0, 0, 0,
+  -1, 0, 1 };
 
 
-int edge_3_kernel[EDGE_3_KERNEL_ROWS][EDGE_3_KERNEL_COLS] =
-{ {-1, -1, -1},
-  {-1, 8, -1},
-  {-1, -1, -1} };
-
-int sharpen_kernel[SHARPEN_KERNEL_ROWS][SHARPEN_KERNEL_COLS] =
-{ {0, -1, 0},
-  {-1, 5, -1},
-  {0, -1, 0} };
-
-int gaussian_3_3_kernel[GAUSSIAN_3_3_KERNEL_ROWS][GAUSSIAN_3_3_KERNEL_COLS] =
-{ {1, 2, 1},
-  {2, 4, 2},
-  {1, 2, 1} };
-
-int gaussian_5_5_kernel[GAUSSIAN_5_5_KERNEL_ROWS][GAUSSIAN_5_5_KERNEL_COLS] =
-{ {1, 4, 6, 4, 1},
-  {4, 16, 24, 16, 4},
-  {6, 24, 36, 24, 6},
-  {4, 16, 24, 16, 4},
-  {1, 4, 6, 4, 1} };
-
-int gradient_x_kernel[GRADIENT_X_KERNEL_ROWS][GRADIENT_X_KERNEL_ROWS] =
-{ {0, 0, 0},
-  {-1, 0, 1},
-  {0, 0, 0} };
-
-int gradient_y_kernel[GRADIENT_Y_KERNEL_ROWS][GRADIENT_X_KERNEL_ROWS] =
-{ {0, -1, 0},
-  {0, 0, 0},
-  {0, 1, 0 }};
-
-int finite_east_kernel[FINITE_EAST_KERNEL_ROWS][FINITE_EAST_KERNEL_ROWS] =
-{ {0, 0, 0},
-  {0, -1, 1},
-  {0, 0, 0 }};
-
-int finite_west_kernel[FINITE_WEST_KERNEL_ROWS][FINITE_WEST_KERNEL_ROWS] =
-{ {0, 0, 0},
-  {1, -1, 0},
-  {0, 0, 0 }};
-
-int finite_north_kernel[FINITE_NORTH_KERNEL_ROWS][FINITE_NORTH_KERNEL_ROWS] =
-{ {0, 1, 0},
-  {0, -1, 0},
-  {0, 0, 0 }};
-
-int finite_south_kernel[FINITE_SOUTH_KERNEL_ROWS][FINITE_SOUTH_KERNEL_ROWS] =
-{ {0, 0, 0},
-  {0, -1, 0},
-  {0, 1, 0 }};
+int edge_2_kern[EDGE_2_ROWS * EDGE_2_COLS] = 
+{ 0, 1, 0,
+  1, -4, 1,
+  0, 1, 0 };
 
 
+int edge_3_kern[EDGE_3_ROWS * EDGE_3_COLS] =
+{ -1, -1, -1,
+  -1, 8, -1,
+  -1, -1, -1 };
 
+int sharpen_kern[SHARPEN_ROWS * SHARPEN_COLS] =
+{ 0, -1, 0,
+  -1, 5, -1,
+  0, -1, 0 };
 
-int laplace_kernel[LAPLACE_KERNEL_ROWS][LAPLACE_KERNEL_COLS] =
-{ {0, 1, 0},
-  {1, -4, 1},
-  {0, 1, 0} };
+int gauss_3_3_kern[GAUSS_3_3_ROWS * GAUSS_3_3_COLS] =
+{ 1, 2, 1,
+  2, 4, 2,
+  1, 2, 1 };
+
+int gauss_5_5_kern[GAUSS_5_5_ROWS * GAUSS_5_5_COLS] =
+{ 1, 4, 6, 4, 1,
+  4, 16, 24, 16, 4,
+  6, 24, 36, 24, 6,
+  4, 16, 24, 16, 4,
+  1, 4, 6, 4, 1 };
+
+int xffdiff_kern[XFFDIFF_ROWS * XFFDIFF_COLS] =
+{ 0, 0, 0,
+  0, -1, 1,
+  0, 0, 0 };
+
+int xfbdiff_kern[XFBDIFF_ROWS * XFBDIFF_COLS] =
+{ 0, 0, 0,
+  -1, 1, 0,
+  0, 0, 0 };
+
+int yffdiff_kern[YFFDIFF_ROWS * YFFDIFF_COLS] =
+{ 0, 0, 0,
+  0, -1, 0,
+  0, 1, 0 };
+
+int yfbdiff_kern[YFBDIFF_ROWS * YFBDIFF_COLS] =
+{ 0, -1, 0,
+  0, 1, 0,
+  0, 0, 0 };
+
+int laplacian_kern1[LAPLACIAN_ROWS * LAPLACIAN_COLS] =
+{ 0, -1, 0,
+  -1, 4, -1,
+  0, -1, 0 };
+
+int laplacian_kern2[LAPLACIAN_ROWS * LAPLACIAN_COLS] =
+{ -1, -1, -1,
+  -1, 8, -1,
+  -1, -1, -1 };
